@@ -9,12 +9,13 @@ namespace Happy
     [Activity(Label = "Happy", MainLauncher = true, Theme = "@style/MyTheme")]
     public class MainActivity : Activity
     {
+        //The motivation of this app is to fight the depression epedemic
         TextView quoteView;
 
         string[] hQuotes;
         string[] mQuotes;
         string[] iQuotes;
-
+        
         int hQuoteIndex = 0;
         int mQuoteIndex = 0;
         int iQuoteIndex = 0;
