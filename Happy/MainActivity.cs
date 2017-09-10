@@ -3,6 +3,7 @@ using Android.Widget;
 using Android.OS;
 using System;
 using System.Linq;
+using System.Timers;
 
 namespace Happy
 {
@@ -20,6 +21,9 @@ namespace Happy
         int mQuoteIndex = 0;
         int iQuoteIndex = 0;
         int selectedTab = 0;
+
+        Timer t;
+        int meditationSeconds = 0;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -58,6 +62,29 @@ namespace Happy
             iQuotes = iQuotes.OrderBy(x => rnd.Next()).ToArray();
             mQuotes = mQuotes.OrderBy(x => rnd.Next()).ToArray();
         }
+
+        private void meditationTimer(int seconds)
+        {
+            //this is what is called after number of seconds has been decided for mediation
+            t = new Timer();
+            meditationSeconds = seconds;
+            t.Interval = 1000;
+            t.Elapsed += T_Elapsed;
+            t.Enabled = true;
+        }
+
+        private void T_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            //this keeps track or remaining time and ends it
+            meditationSeconds--;
+            if (meditationSeconds <= 0)
+            {
+                //Also turn on alarm
+                t.Enabled = false;
+                t.Stop();
+            }
+        }
+
         private void SetUpApp()
         {
             //below creates the tabs for the homepage and sets them up to do something when they switch
